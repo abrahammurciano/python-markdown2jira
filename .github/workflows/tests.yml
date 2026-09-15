@@ -16,3 +16,11 @@ jobs:
         uses: astral-sh/setup-uv@v4
       - name: Run Tests
         run: uv run pytest tests/
+      - name: Ruff Lint
+        run: uv run ruff check .
+      - name: Ruff Format Check
+        run: uv run ruff format --check .
+      - name: Mypy
+        run: uv run mypy markdown2jira
+      - name: Basedpyright
+        run: uv run basedpyright

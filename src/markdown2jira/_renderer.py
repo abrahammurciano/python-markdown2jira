@@ -65,25 +65,29 @@ def render_blockquote(
 
 @JiraRenderer.register("thematicBreak")
 def render_thematic_break(
-    renderer: JiraRenderer, node: ThematicBreak, context: JiraRenderContext
+    _renderer: JiraRenderer, _node: ThematicBreak, _context: JiraRenderContext
 ) -> str:
     return "----\n\n"
 
 
 @JiraRenderer.register("html")
-def render_html(renderer: JiraRenderer, node: Html, context: JiraRenderContext) -> str:
+def render_html(
+    _renderer: JiraRenderer, node: Html, _context: JiraRenderContext
+) -> str:
     value = node.value.rstrip("\n")
     return f"{{noformat}}\n{value}\n{{noformat}}\n\n"
 
 
 @JiraRenderer.register("text")
-def render_text(renderer: JiraRenderer, node: Text, context: JiraRenderContext) -> str:
+def render_text(
+    _renderer: JiraRenderer, node: Text, _context: JiraRenderContext
+) -> str:
     return node.value
 
 
 @JiraRenderer.register("inlineCode")
 def render_inline_code(
-    renderer: JiraRenderer, node: InlineCode, context: JiraRenderContext
+    _renderer: JiraRenderer, node: InlineCode, _context: JiraRenderContext
 ) -> str:
     return "{{" + node.value + "}}"
 
@@ -119,7 +123,7 @@ def render_link(renderer: JiraRenderer, node: Link, context: JiraRenderContext) 
 
 @JiraRenderer.register("image")
 def render_image(
-    renderer: JiraRenderer, node: Image, context: JiraRenderContext
+    _renderer: JiraRenderer, node: Image, _context: JiraRenderContext
 ) -> str:
     if node.alt:
         return f"!{node.url}|alt={node.alt}!"
@@ -128,13 +132,15 @@ def render_image(
 
 @JiraRenderer.register("break")
 def render_break(
-    renderer: JiraRenderer, node: Break, context: JiraRenderContext
+    _renderer: JiraRenderer, _node: Break, _context: JiraRenderContext
 ) -> str:
     return "\\\\\n"
 
 
 @JiraRenderer.register("code")
-def render_code(renderer: JiraRenderer, node: Code, context: JiraRenderContext) -> str:
+def render_code(
+    _renderer: JiraRenderer, node: Code, _context: JiraRenderContext
+) -> str:
     header = f"{{code:{node.lang}}}" if node.lang else "{code}"
     code = node.value if node.value.endswith("\n") else node.value + "\n"
     return f"{header}\n{code}{{code}}\n\n"

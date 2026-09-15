@@ -36,13 +36,23 @@ If you don't, it will be generated automatically on merge to main.
 
 # Code style
 
-Code is formatted with ruff. Please keep it that way.
+Code is formatted and linted with ruff. Please keep it that way.
 
 ```sh
 $ ruff format .
+$ ruff check --fix .
 ```
 
-If you don't, it will be formatted automatically on merge to main.
+If you don't format it, it will be formatted automatically on merge to main.
+
+# Type checking
+
+Code is type checked with mypy and basedpyright. Both are run in CI on every pull request.
+
+```sh
+$ mypy markdown2jira
+$ basedpyright
+```
 
 # Deployment
 
