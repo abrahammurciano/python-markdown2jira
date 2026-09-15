@@ -78,6 +78,6 @@ def render_shouting_heading(
 
 
 converter = Markdown2Jira(renderer=ShoutingRenderer())
-converter.convert("# hello world")
-# 'h1. HELLO WORLD'
+converter.convert("# hello, world")
+# 'h1. HELLO, WORLD'
 ```
