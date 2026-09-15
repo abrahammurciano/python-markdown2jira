@@ -1,5 +1,3 @@
-
-
 name: Tests
 on:
   pull_request:
@@ -21,6 +19,6 @@ jobs:
       - name: Ruff Format Check
         run: uv run ruff format --check .
       - name: Mypy
-        run: uv run mypy markdown2jira
+        run: uv run mypy .
       - name: Basedpyright
         run: uv run basedpyright
