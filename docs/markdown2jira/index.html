@@ -48,6 +48,56 @@ el.replaceWith(d);
 <p><a href="https://github.com/abrahammurciano/python-markdown2jira.git"><img alt="Source Code - GitHub" src="https://img.shields.io/badge/Source_Code-GitHub-181717?style=for-the-badge&amp;logo=GitHub&amp;logoColor=%23FFFFFF"></a></p>
 <p><a href="https://pypi.org/project/markdown2jira/"><img alt="PyPI - markdown2jira" src="https://img.shields.io/badge/PyPI-markdown2jira-006DAD?style=for-the-badge&amp;logo=PyPI&amp;logoColor=%23FFD242"></a></p>
 <h2 id="usage">Usage</h2>
+<p>The simplest way to convert Markdown to Jira wiki markup is the <code><a title="markdown2jira.convert" href="#markdown2jira.convert">convert()</a></code> function.</p>
+<pre><code class="language-python">from markdown2jira import convert
+
+convert(&quot;# Title\n\nSome **bold** and _italic_ text.&quot;)
+# 'h1. Title\n\nSome *bold* and _italic_ text.'
+</code></pre>
+<p>By default, <code><a title="markdown2jira.convert" href="#markdown2jira.convert">convert()</a></code> parses Markdown using GitHub-flavoured Markdown rules (tables, task
+lists, strikethrough, autolinks, footnotes). For more control over parsing and rendering, use
+the <code><a title="markdown2jira.Markdown2Jira" href="#markdown2jira.Markdown2Jira">Markdown2Jira</a></code> class directly.</p>
+<pre><code class="language-python">from wenmode.presets import commonmark
+
+from markdown2jira import Markdown2Jira
+
+converter = Markdown2Jira(commonmark())
+converter.convert(&quot;~~not a strikethrough~~&quot;)
+# '~~not a strikethrough~~'
+</code></pre>
+<p>You can pass any <code>wenmode</code> rules, a custom set of rules, or plugins to customize parsing.</p>
+<pre><code class="language-python">from wenmode.presets import commonmark
+from wenmode.rules import Strikethrough
+
+from markdown2jira import Markdown2Jira
+
+converter = Markdown2Jira((*commonmark(), Strikethrough))
+converter.convert(&quot;~~gone~~&quot;)
+# '-gone-'
+</code></pre>
+<p>To customize rendering, for example to support custom node types introduced by your own
+rules or plugins, subclass <code><a title="markdown2jira.JiraRenderer" href="#markdown2jira.JiraRenderer">JiraRenderer</a></code> and register handlers for the new node types.</p>
+<pre><code class="language-python">from wenmode.nodes import Heading
+
+from markdown2jira import JiraRenderContext, JiraRenderer, Markdown2Jira
+
+
+class ShoutingRenderer(JiraRenderer):
+    pass
+
+
+@ShoutingRenderer.register(&quot;heading&quot;)
+def render_shouting_heading(
+    renderer: ShoutingRenderer, node: Heading, context: JiraRenderContext
+) -&gt; str:
+    title = renderer.render_children(node.children, context)
+    return f&quot;h{node.depth}. {title.upper()}\n\n&quot;
+
+
+converter = Markdown2Jira(renderer=ShoutingRenderer())
+converter.convert(&quot;# hello world&quot;)
+# 'h1. HELLO WORLD'
+</code></pre>
 </section>
 <section>
 </section>
