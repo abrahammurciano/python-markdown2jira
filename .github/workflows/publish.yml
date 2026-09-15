@@ -21,6 +21,9 @@ jobs:
       - name: Build Package
         run: uv build
       - name: Check Build
-        run: pip install dist/*.whl
+        run: |
+          PYTHON=$(uv python find)
+          $PYTHON -m ensurepip --upgrade
+          $PYTHON -m pip install dist/*.whl
       - name: Publish Pip Package
         run: uv publish -u __token__ -p ${{ secrets.PYPI_TOKEN }}
