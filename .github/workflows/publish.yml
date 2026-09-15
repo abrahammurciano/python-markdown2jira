@@ -22,8 +22,7 @@ jobs:
         run: uv build
       - name: Check Build
         run: |
-          PYTHON=$(uv python find)
-          $PYTHON -m ensurepip --upgrade
-          $PYTHON -m pip install dist/*.whl
+          uv venv --seed .check-venv
+          .check-venv/bin/pip install dist/*.whl
       - name: Publish Pip Package
         run: uv publish -u __token__ -p ${{ secrets.PYPI_TOKEN }}
