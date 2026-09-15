@@ -24,11 +24,6 @@ build-backend = "uv_build"
 [tool.uv.build-backend]
 module-name = ["markdown2jira"]
 
-[[tool.uv.index]]
-name = "pypi"
-url = "https://pypi.org/simple"
-default = true
-
 [tool.mypy]
 exclude = [".venv", "venv"]
 
