@@ -1,6 +1,6 @@
 """Convert Markdown to Jira wiki markup.
 
-.. include:: ../README.md
+.. include:: ../../README.md
 """
 
 from importlib import metadata
