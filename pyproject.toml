@@ -1,0 +1,25 @@
+[project]
+name = "markdown2jira"
+# Version is overwritten at build time by CI based on git tag
+version = "0+dev"
+description = "Convert Markdown to Jira wiki markup"
+authors = [{ name = "Abraham Murciano", email = "abrahammurciano@gmail.com" }]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.14"
+keywords = ["markdown", "jira", "wiki markup", "confluence"]
+dependencies = ["wenmode>=0.15.1"]
+
+[project.urls]
+repository = "https://github.com/abrahammurciano/python-markdown2jira"
+documentation = "https://abrahammurciano.github.io/python-markdown2jira/markdown2jira"
+
+[dependency-groups]
+dev = ["ruff", "pytest", "pdoc3", "mypy"]
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.mypy]
+exclude = [".venv", "venv"]
